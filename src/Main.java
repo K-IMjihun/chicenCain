@@ -12,8 +12,7 @@ public class Main {
       System.out.println("2 - 결제하기");
       System.out.println("3 - 프로그램 종료");
       System.out.println("\n## 원하는 기능을 선택하세요.");
-      String input = sc.next();
-      inputCheck(input);
+      inputCheck(sc.next());
     }
   }
     public static void inputCheck(String input){
