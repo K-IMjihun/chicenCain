@@ -1,15 +1,13 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class Order {
   static Scanner sc = new Scanner(System.in);
   static Output output = new Output();
   static String table = "";
-  static HashMap<String, String> tablePrice = new HashMap<>(7);
   static String menuType = "";
   static String menuNumber = "";
+  static HashMap<String, Integer> tablePrice = new HashMap<>();
 
   public static void Order() {
     output.Output();
@@ -32,8 +30,8 @@ public class Order {
       if (!Character.isDigit(table.charAt(0))) {
         throw new IllegalArgumentException("ERROR : 숫자만 입력 가능");
       }
-      if (Integer.parseInt(table) < 1 || Integer.parseInt(table) > 8) {
-        throw new IllegalArgumentException("ERROR : 1 ~ 8 만 입력 가능");
+      if (Integer.parseInt(table) < 1 || Integer.parseInt(table) > 7) {
+        throw new IllegalArgumentException("ERROR : 1 ~ 7 만 입력 가능");
       }
   }
   public static void menu(){
@@ -48,25 +46,31 @@ public class Order {
             "[음료] 22 - 사이다 : 1000원");
   }
   public static void menuPrice(String menuType){
+    int price = 0;
     switch (menuType){
-      case "1" : tablePrice.put(table, (Integer.toString(16000*Integer.parseInt(menuNumber))));
+      case "1" : price = 16000*Integer.parseInt(menuNumber);
         break;
-      case "2" : tablePrice.put(table, (Integer.toString(16000*Integer.parseInt(menuNumber))));
+      case "2" : price = 16000*Integer.parseInt(menuNumber);
         break;
-      case "3" : tablePrice.put(table, (Integer.toString(16000*Integer.parseInt(menuNumber))));
+      case "3" : price = 16000*Integer.parseInt(menuNumber);
         break;
-      case "4" : tablePrice.put(table, (Integer.toString(16000*Integer.parseInt(menuNumber))));
+      case "4" : price = 16000*Integer.parseInt(menuNumber);
         break;
-      case "5" : tablePrice.put(table, (Integer.toString(17000*Integer.parseInt(menuNumber))));
+      case "5" : price = 17000*Integer.parseInt(menuNumber);
         break;
-      case "6" : tablePrice.put(table, (Integer.toString(17000*Integer.parseInt(menuNumber))));
+      case "6" : price = 17000*Integer.parseInt(menuNumber);
         break;
-      case "21" : tablePrice.put(table, (Integer.toString(1000*Integer.parseInt(menuNumber))));
+      case "21" : price = 1000*Integer.parseInt(menuNumber);
         break;
-      case "22" : tablePrice.put(table, (Integer.toString(1000*Integer.parseInt(menuNumber))));
+      case "22" : price = 1000*Integer.parseInt(menuNumber);
         break;
     }
-    System.out.println(tablePrice);
+    if(tablePrice.get(table) != null){
+      tablePrice.put(table, price + tablePrice.get(table));
+    }
+    if(tablePrice.get(table) == null) {
+      tablePrice.put(table, price);
+    }
     }
   public static void menuTypeCheck(String menuNumber){
     if(menuNumber.length() == 1){
@@ -100,5 +104,5 @@ public class Order {
   public static void paymentCompleted(String number){
     tablePrice.remove(number);
   }
-  public static HashMap<String, String> getTablePrice() {return tablePrice; }
+  public static HashMap<String, Integer> getTablePrice() {return tablePrice; }
 }
