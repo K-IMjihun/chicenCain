@@ -1,6 +1,7 @@
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,10 +11,11 @@ public class Output {
   static List<String> list2 = new ArrayList<>();
   static List<String> list3 = new ArrayList<>();
   public void Output() {
+    HashMap<String, Integer> tableCreate = order.getTablePrice();
     for(int i = 1; i < 8; i++){
       list1.add(" - ");
       list2.add(Integer.toString(i));
-      if(order.getOrderTable().contains(Integer.toString(i))){
+      if(tableCreate.containsKey(Integer.toString(i))){
         list3.add(i - 1, " # ");
       }
       else{
